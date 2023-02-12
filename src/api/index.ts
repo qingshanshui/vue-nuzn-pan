@@ -1,4 +1,4 @@
-import request from '/@/axios';
+import request from '/@/utils/axios';
 
 // 上传文件
 export function SaveUpload(data: object) {

@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import {defineProps} from "vue"
-import {Home} from '@vicons/ionicons5'
-
+import {FileSelectIcon} from '/@/utils/utils'
+import {useRoute, useRouter} from "vue-router"
+const router=useRouter()
 const props = defineProps({
     list: {
         type: Array,
         default: () => [],
     }
 })
+
+const handelDirRoute = (obj: any) => {
+    if (!obj.isDir) return false;
+    console.log(useRoute(), obj,obj.path)
+    router.push(obj.path)
+
+}
 </script>
 
 
@@ -21,8 +29,12 @@ const props = defineProps({
             </div>
         </div>
         <div class="t-list-body">
-            <div class="list-item row" v-for="item in props.list">
-                <div class="col-xs-9 col-sm-6 list-item-name"><n-icon :component="Home"/>{{ item.name }}</div>
+            <div class="list-item row" v-for="item in props.list" @click="handelDirRoute(item)">
+                <div class="col-xs-9 col-sm-6 list-item-name">
+                    <n-icon :component="FileSelectIcon(item)" size="25" color="rgb(24, 144, 255)"
+                            style="margin-right: 5px"/>
+                    {{ item.name }}
+                </div>
                 <div class="col-xs-3 col-sm-3 list-item-size">{{ item.size }}</div>
                 <div class="col-sm-3 list-item-update-time hidden-xs">{{ item.time }}</div>
             </div>
@@ -40,6 +52,8 @@ const props = defineProps({
     overflow: hidden; /*超出的文本隐藏*/
     text-overflow: ellipsis; /*用省略号显示*/
     white-space: nowrap; /*不换行*/
+    display: flex;
+    align-items: center;
 }
 
 .list-item-size {
