@@ -1,6 +1,12 @@
 <script setup lang="ts">
-defineProps({
-    list:Array,
+import {defineProps} from "vue"
+import {Home} from '@vicons/ionicons5'
+
+const props = defineProps({
+    list: {
+        type: Array,
+        default: () => [],
+    }
 })
 </script>
 
@@ -15,10 +21,10 @@ defineProps({
             </div>
         </div>
         <div class="t-list-body">
-            <div class="list-item row" v-for="item in list">
-                <div class="col-xs-9 col-sm-6 list-item-name">{{item.name}}</div>
-                <div class="col-xs-3 col-sm-3 list-item-size">{{item.size}}</div>
-                <div class="col-sm-3 list-item-update-time hidden-xs">{{item.time}}</div>
+            <div class="list-item row" v-for="item in props.list">
+                <div class="col-xs-9 col-sm-6 list-item-name"><n-icon :component="Home"/>{{ item.name }}</div>
+                <div class="col-xs-3 col-sm-3 list-item-size">{{ item.size }}</div>
+                <div class="col-sm-3 list-item-update-time hidden-xs">{{ item.time }}</div>
             </div>
         </div>
     </div>
@@ -26,7 +32,8 @@ defineProps({
 
 
 <style scoped>
-.list-item {
+.list {
+    padding: 0;
 }
 
 .list-item-name {

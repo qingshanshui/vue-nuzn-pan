@@ -1,19 +1,34 @@
 <script setup lang="ts">
+import {reactive, onMounted} from "vue"
 import NotFound from "./main/notFound.vue"
-import List from  "./main/list.vue"
+import List from "./main/list.vue"
+import {SaveUpload} from "/@/api/index"
+
+let state = reactive({
+    list: [] as any[],
+})
+
+onMounted(() => {
+    initState()
+})
+
+const initState = async () => {
+    let res = await SaveUpload({path: "/"})
+    state.list = res.data.data
+}
 </script>
 
 <template>
- <div class="mains">
-<!--     <NotFound/>-->
-     <List :list="[{name:'main.go',size:'436B',time:'2023-01-07 21:07:44'},{name:'jos.rs',size:'46B',time:'2023-01-07 21:07:44'},{name:'main.rs',size:'46B',time:'2023-01-07 21:07:44'}]"/>
- </div>
+    <div class="mains">
+        <!--     <NotFound/>-->
+        <List :list="state.list"/>
+    </div>
 </template>
 
 <style scoped>
-.mains{
+.mains {
     background-color: var(--background-color);
-    padding: var(--padding);
+    padding: 10px 20px;
     border-radius: var(--border-radius);
 }
 </style>

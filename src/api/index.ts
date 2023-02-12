@@ -3,9 +3,9 @@ import request from '/@/axios';
 // 上传文件
 export function SaveUpload(data: object) {
     return request({
-        url: '/basic/files/upload/formFile',
-        method: 'post',
-        data: data,
+        url: '/v1/list',
+        method: 'get',
+        params: data,
         headers:{
             'Content-Type': 'multipart/form-data'
         }

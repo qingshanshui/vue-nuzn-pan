@@ -2,8 +2,7 @@
 import Headers from "/@/components/Headers.vue"
 import Navs from "../../components/navs.vue"
 import Mains from "/@/components/mains.vue";
-import {SaveUpload} from  "/@/api/index"
-SaveUpload({})
+
 </script>
 <template>
     <Headers></Headers>

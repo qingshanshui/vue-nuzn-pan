@@ -13,17 +13,14 @@ function routeToUrl() {
     }
     return arr
 }
-
 let routeList = routeToUrl()
-
-console.log(routeToUrl())
 </script>
 
 <template>
     <n-breadcrumb class="navs">
         <n-breadcrumb-item href="/">
             <n-icon :component="Home"/>
-            北京总行
+            主页
         </n-breadcrumb-item>
         <n-breadcrumb-item v-for="item in routeList" :href="item.path">
             {{ item.href }}

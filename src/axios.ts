@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 配置新建一个 axios 实例
 const service = axios.create({
-    baseURL: '/v1/',
+    baseURL: '/api',
     timeout: 50000,
     headers: { 'Content-Type': 'application/json' },
 });
