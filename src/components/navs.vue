@@ -39,7 +39,7 @@ routeToUrl()
 
 <template>
     <n-breadcrumb class="navs">
-        <n-breadcrumb-item href="/">
+        <n-breadcrumb-item @click="handelRoute({path:'/'})">
             <n-icon :component="Home"/>
             主页
         </n-breadcrumb-item>

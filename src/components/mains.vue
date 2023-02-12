@@ -13,6 +13,7 @@ watch(route, () => {
 })
 let state = reactive({
     list: [] as any[],
+    show: false
 })
 
 onMounted(() => {
@@ -20,15 +21,21 @@ onMounted(() => {
 })
 
 const initState = async () => {
+    state.show = true
     let res = await SaveUpload({path: route.path === "/" ? "" : route.path})
-    state.list = res.data.data
+    state.show = false
+    state.list = res?.data?.data || []
 }
 </script>
 
 <template>
     <div class="mains">
-        <!--     <NotFound/>-->
-        <List :list="state.list"/>
+        <n-space vertical>
+            <n-spin :show="state.show">
+                <NotFound v-if="state.list.length === 0"/>
+                <List v-else :list="state.list"/>
+            </n-spin>
+        </n-space>
     </div>
 </template>
 

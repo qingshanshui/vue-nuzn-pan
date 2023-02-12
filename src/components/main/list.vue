@@ -1,18 +1,15 @@
 <script setup lang="ts">
 import {defineProps} from "vue"
 import {FileSelectIcon} from '/@/utils/utils'
-import {useRoute, useRouter} from "vue-router"
-const router=useRouter()
+import {useRouter} from "vue-router"
+
+const router = useRouter()
 const props = defineProps({
-    list: {
-        type: Array,
-        default: () => [],
-    }
+    list: Array
 })
 
 const handelDirRoute = (obj: any) => {
     if (!obj.isDir) return false;
-    console.log(useRoute(), obj,obj.path)
     router.push(obj.path)
 
 }
@@ -29,7 +26,7 @@ const handelDirRoute = (obj: any) => {
             </div>
         </div>
         <div class="t-list-body">
-            <div class="list-item row" v-for="item in props.list" @click="handelDirRoute(item)">
+            <div class="list-item row" v-for="(item) in props.list" @click="handelDirRoute(item)">
                 <div class="col-xs-9 col-sm-6 list-item-name">
                     <n-icon :component="FileSelectIcon(item)" size="25" color="rgb(24, 144, 255)"
                             style="margin-right: 5px"/>
