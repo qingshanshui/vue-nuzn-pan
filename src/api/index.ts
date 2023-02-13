@@ -1,12 +1,12 @@
 import request from '/@/utils/axios';
 
-// 上传文件
-export function SaveUpload(data: object) {
+// 获取文件列表
+export function GetList(data: object) {
     return request({
         url: '/v1/list',
-        method: 'get',
-        params: data,
-        headers:{
+        method: 'POST',
+        data: data,
+        headers: {
             'Content-Type': 'multipart/form-data'
         }
     });

@@ -2,13 +2,12 @@
 import {reactive, onMounted, watch} from "vue"
 import NotFound from "./main/notFound.vue"
 import List from "./main/list.vue"
-import {SaveUpload} from "/@/api/index"
+import {GetList} from "/@/api/index"
 import {useRoute} from 'vue-router'
 
 let route = useRoute()
 
 watch(route, () => {
-    console.log(route)
     initState()
 })
 let state = reactive({
@@ -22,7 +21,7 @@ onMounted(() => {
 
 const initState = async () => {
     state.show = true
-    let res = await SaveUpload({path: route.path === "/" ? "" : route.path})
+    let res = await GetList({path: route.path === "/" ? "" : route.path})
     state.show = false
     state.list = res?.data?.data || []
 }
