@@ -1,4 +1,4 @@
-import {createRouter, createWebHistory} from 'vue-router';
+import {createMemoryHistory, createRouter, createWebHashHistory, createWebHistory} from 'vue-router';
 
 export const notFoundAndNoPower = [
     {
@@ -14,6 +14,6 @@ export const notFoundAndNoPower = [
 
 // 创建 路由实例
 export const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes: [...notFoundAndNoPower],
 });

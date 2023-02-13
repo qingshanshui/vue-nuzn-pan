@@ -8,7 +8,6 @@ let route = useRoute()
 let routes = useRouter()
 watch(route, () => {
     routeToUrl()
-    console.log(state.routeList)
 })
 
 let state = reactive({
@@ -17,7 +16,6 @@ let state = reactive({
 
 
 const handelRoute = (obj: any) => {
-    console.log(obj)
     routes.push(obj.path)
 }
 

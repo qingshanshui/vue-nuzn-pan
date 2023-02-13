@@ -11,3 +11,28 @@ export function GetList(data: object) {
         }
     });
 }
+
+// 获取文件信息
+export function GetFile(data: object) {
+    return request({
+        url: '/v1/get',
+        method: 'POST',
+        data: data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}
+
+// 文件下载
+export function GetFileDownload(data: object) {
+    return request({
+        url: '/v1/download',
+        method: 'POST',
+        data: data,
+        responseType: 'blob',
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}

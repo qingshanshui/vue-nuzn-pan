@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {defineProps} from "vue"
-import {FileSelectIcon} from '/@/utils/utils'
+import {FileSelectIcon,sizeToStr} from '/@/utils/utils'
 import {useRouter} from "vue-router"
 
 const router = useRouter()
@@ -9,28 +9,8 @@ const props = defineProps({
 })
 
 const handelDirRoute = (obj: any) => {
-    if (!obj.isDir) return false;
+    // if (!obj.isDir) return false;
     router.push(obj.path)
-}
-
-
-const sizeToStr = (size: number) => {
-    let sizeStr = "";
-    if (size < 0.1 * 1024) { //如果小于0.1KB转化成B
-        sizeStr = size.toFixed(2) + "B";
-    } else if (size < 0.1 * 1024 * 1024) {//如果小于0.1MB转化成KB
-        sizeStr = (size / 1024).toFixed(2) + "KB";
-    } else if (size < 0.1 * 1024 * 1024 * 1024) { //如果小于0.1GB转化成MB
-        sizeStr = (size / (1024 * 1024)).toFixed(2) + "MB";
-    } else { //其他转化成GB
-        sizeStr = (size / (1024 * 1024 * 1024)).toFixed(2) + "GB";
-    }
-    let len = sizeStr.indexOf("\.");
-    let dec = sizeStr.substr(len + 1, 2);
-    if (dec == "00") {//当小数点后为00时 去掉小数部分
-        return sizeStr.substring(0, len) + sizeStr.substr(len + 3, 2);
-    }
-    return sizeStr;
 }
 </script>
 
