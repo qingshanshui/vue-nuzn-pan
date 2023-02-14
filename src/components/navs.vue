@@ -36,15 +36,20 @@ routeToUrl()
 </script>
 
 <template>
-    <n-breadcrumb class="navs">
-        <n-breadcrumb-item @click="handelRoute({path:'/'})">
-            <n-icon :component="Home"/>
-            主页
-        </n-breadcrumb-item>
-        <n-breadcrumb-item v-for="item in state.routeList" @click="handelRoute(item)">
-            {{ item.href }}
-        </n-breadcrumb-item>
-    </n-breadcrumb>
+    <div style="display: flex;justify-content: space-between;align-items: center;">
+        <n-breadcrumb class="navs">
+            <n-breadcrumb-item @click="handelRoute({path:'/'})">
+                <n-icon :component="Home"/>
+                主页
+            </n-breadcrumb-item>
+            <n-breadcrumb-item v-for="item in state.routeList" @click="handelRoute(item)">
+                {{ item.href }}
+            </n-breadcrumb-item>
+        </n-breadcrumb>
+        <n-button type="info" size="small">
+            上传文件
+        </n-button>
+    </div>
 </template>
 
 <style scoped>

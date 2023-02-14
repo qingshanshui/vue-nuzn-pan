@@ -92,6 +92,11 @@ document.addEventListener('click', () => {
     transition: all 0.3s ease 0s;
     border-radius: var(--border-radius);
     margin-top: 2px;
+    /* 文字不能选中 */
+    -webkit-user-select:none;
+     -moz-user-select:none;
+     -ms-user-select:none;
+     user-select:none;
 }
 
 .t-list-body .list-item:hover {
