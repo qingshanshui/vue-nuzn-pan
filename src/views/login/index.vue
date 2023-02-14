@@ -1,15 +1,27 @@
 <script setup lang="ts">
 import {onMounted} from "vue"
-import * as domain from "domain";
+import {  useRouter } from "vue-router";
+import { login } from "/@/api/index";
+import { useMessage } from 'naive-ui'
+const message = useMessage()
+const router = useRouter();
+
 
 onMounted(() => {
     let btn: any = document.querySelector(".login-content .login-content-submit .btn")
     btn.addEventListener("click", () => {
         let user: any = document.querySelector("#inputAccountExampleUser")
         let pass: any = document.querySelector("#inputPasswordExamplePass")
-        console.log(user.value, pass.value, "=====")
+        login({username:user.value,password:pass.value}).then(res=>{
+            if(res.data.code === 1000){
+                message.success('登录成功')
+                localStorage.setItem('token',res.data.data)
+                router.push("/")
+            }else{
+                message.warning('登录失败')
+            }
+        })
     })
-    console.log(btn)
 })
 </script>
 
@@ -23,7 +35,7 @@ onMounted(() => {
                 <div class="login-content-user">
                     <div class="input-control has-icon-left">
                         <input id="inputAccountExampleUser" type="text" class="form-control" placeholder="用户名"
-                               value="21213">
+                               value="">
                         <label for="inputAccountExampleUser" class="input-control-icon-left"><i
                                 class="icon icon-user "></i></label>
                     </div>
@@ -31,7 +43,7 @@ onMounted(() => {
                 <div class="login-content-pass">
                     <div class="input-control has-icon-left">
                         <input id="inputPasswordExamplePass" type="password" class="form-control" placeholder="密码"
-                               value="999">
+                               value="">
                         <label for="inputPasswordExamplePass" class="input-control-icon-left"><i
                                 class="icon icon-key"></i></label>
                     </div>

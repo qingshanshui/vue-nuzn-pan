@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Home} from '@vicons/ionicons5'
 import {useRoute, useRouter} from "vue-router"
-import {watch, reactive, onBeforeMount} from "vue"
+import {watch, reactive, onBeforeMount,computed} from "vue"
 import {it} from "node:test";
 
 let route = useRoute()
@@ -12,6 +12,10 @@ watch(route, () => {
 
 let state = reactive({
     routeList: [] as any[],
+})
+
+let isUpload = computed(()=>{
+    return localStorage.getItem('token') ? true : false
 })
 
 
@@ -46,7 +50,7 @@ routeToUrl()
                 {{ item.href }}
             </n-breadcrumb-item>
         </n-breadcrumb>
-        <n-button type="info" size="small">
+        <n-button type="info" size="small" v-if="isUpload">
             上传文件
         </n-button>
     </div>

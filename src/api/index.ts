@@ -36,3 +36,15 @@ export function GetFileDownload(data: object) {
         }
     });
 }
+
+// 登录接口
+export function login(data: object) {
+    return request({
+        url: '/v1/login',
+        method: 'POST',
+        data: data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}

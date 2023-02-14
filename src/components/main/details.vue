@@ -3,18 +3,16 @@ import {defineProps, reactive} from "vue";
 import {FileSelectIcon, saveAs, sizeToStr} from '/@/utils/utils'
 import {GetFileDownload} from '/@/api/index'
 import useClipboard from 'vue-clipboard3'
+import { useMessage } from 'naive-ui'
+const message = useMessage()
 
 const {toClipboard} = useClipboard()
 const copy = async (path:string) => {
     try {
         await toClipboard(`${location.origin}/v1/download?path=${path}`)
-        new $.zui.Messager('复制成功', {
-            type: 'success', // 定义颜色主题
-            close: false, // 禁用关闭按钮
-            time:2000
-        }).show();
+        message.success("复制成功")
     } catch (e) {
-        console.error(e)
+        message.warning(e)
     }
 }
 const handelDownload = (path: string) => {
@@ -22,6 +20,7 @@ const handelDownload = (path: string) => {
     GetFileDownload({path}).then(blob => {
         saveAs(blob.data, props.detail.name)
         state.loading = false
+        message.success("下载成功")
     })
 }
 const props = defineProps({
