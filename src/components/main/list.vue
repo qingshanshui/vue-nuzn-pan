@@ -25,7 +25,7 @@ const contextmenuOperation = (e, obj: any) => {
 }
 
 document.addEventListener('click', () => {
-    rightOperations.value.$el.style.display = `none`;
+    if (rightOperations.value) rightOperations.value.$el.style.display = `none`;
 })
 </script>
 
