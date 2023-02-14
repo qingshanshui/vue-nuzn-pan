@@ -28,8 +28,8 @@ export function GetFile(data: object) {
 export function GetFileDownload(data: object) {
     return request({
         url: '/v1/download',
-        method: 'POST',
-        data: data,
+        method: 'GET',
+        params: data,
         responseType: 'blob',
         headers: {
             'Content-Type': 'multipart/form-data'

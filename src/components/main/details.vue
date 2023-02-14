@@ -1,39 +1,63 @@
 <script setup lang="ts">
-import {defineProps} from "vue";
+import {defineProps, reactive} from "vue";
 import {FileSelectIcon, saveAs, sizeToStr} from '/@/utils/utils'
 import {GetFileDownload} from '/@/api/index'
+import useClipboard from 'vue-clipboard3'
 
+const {toClipboard} = useClipboard()
+const copy = async (path:string) => {
+    try {
+        await toClipboard(`${location.origin}/v1/download?path=${path}`)
+        new $.zui.Messager('复制成功', {
+            type: 'success', // 定义颜色主题
+            close: false, // 禁用关闭按钮
+            time:2000
+        }).show();
+    } catch (e) {
+        console.error(e)
+    }
+}
 const handelDownload = (path: string) => {
+    state.loading = true
     GetFileDownload({path}).then(blob => {
         saveAs(blob.data, props.detail.name)
+        state.loading = false
     })
 }
 const props = defineProps({
     detail: {type: Object}
 })
 
+let state = reactive({
+    loading: false
+})
+
 </script>
 <template>
-    <div class="detail">
-        <div class="detail-icon">
-            <n-icon :component="FileSelectIcon(props.detail)" size="50" color="rgb(24, 144, 255)"
-                    style="margin-right: 5px"/>
-        </div>
-        <div class="detail-name">
-            {{ props.detail.name }}
-        </div>
-        <div class="detail-info">
-            {{ sizeToStr(props.detail.size) }} • {{ props.detail.time }}
-        </div>
-        <div class="detail-operation">
-            <n-button type="primary" style="margin-right: 5px">
-                复制链接
-            </n-button>
-            <n-button type="info" @click="handelDownload(props.detail.path)">
-                下载
-            </n-button>
-        </div>
-    </div>
+    <n-space vertical>
+        <n-spin :show="state.loading">
+            <div class="detail">
+                <div class="detail-icon">
+                    <n-icon :component="FileSelectIcon(props.detail)" size="50" color="rgb(24, 144, 255)"
+                            style="margin-right: 5px"/>
+                </div>
+                <div class="detail-name">
+                    {{ props.detail.name }}
+                </div>
+                <div class="detail-info">
+                    {{ sizeToStr(props.detail.size) }} • {{ props.detail.time }}
+                </div>
+                <div class="detail-operation">
+                    <n-button type="primary" style="margin-right: 5px" @click="copy(props.detail.path)">
+                        复制链接
+                    </n-button>
+                    <n-button type="info" @click="handelDownload(props.detail.path)">
+                        下载
+                    </n-button>
+                </div>
+            </div>
+        </n-spin>
+    </n-space>
 </template>
 
 
