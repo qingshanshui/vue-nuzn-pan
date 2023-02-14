@@ -48,3 +48,15 @@ export function login(data: object) {
         }
     });
 }
+
+// 文件上传
+export function upload(data: object) {
+    return request({
+        url: '/v1/upload',
+        method: 'POST',
+        data: data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
+}
