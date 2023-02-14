@@ -1,22 +1,38 @@
 <script setup lang="ts">
-import {defineProps} from "vue"
-import {FileSelectIcon,sizeToStr} from '/@/utils/utils'
+import {defineProps, reactive, ref} from "vue"
+import {FileSelectIcon, sizeToStr} from '/@/utils/utils'
 import {useRouter} from "vue-router"
+import rightOperation from "./rightOperation.vue";
 
 const router = useRouter()
 const props = defineProps({
     list: Array
 })
-
+const rightOperations = ref(null);
+let state = reactive({
+    detail: {}
+})
 const handelDirRoute = (obj: any) => {
-    // if (!obj.isDir) return false;
     router.push(obj.path)
 }
+const contextmenuOperation = (e, obj: any) => {
+    e.preventDefault()
+    if (obj.isDir) return false;
+    state.detail = obj
+    rightOperations.value.$el.style.top = `${e.clientY}px`;
+    rightOperations.value.$el.style.left = `${e.clientX}px`;
+    rightOperations.value.$el.style.display = `block`;
+}
+
+document.addEventListener('click', () => {
+    rightOperations.value.$el.style.display = `none`;
+})
 </script>
 
 
 <template>
     <div class="list">
+        <rightOperation ref="rightOperations" :detail="state.detail"/>
         <div class="t-list-header">
             <div class="list-item row">
                 <div class="col-xs-9 col-sm-6 list-item-name">名称</div>
@@ -25,7 +41,8 @@ const handelDirRoute = (obj: any) => {
             </div>
         </div>
         <div class="t-list-body">
-            <div class="list-item row" v-for="(item) in props.list" @click="handelDirRoute(item)">
+            <div class="list-item row" v-for="(item) in props.list" @click="handelDirRoute(item)"
+                 @contextmenu="contextmenuOperation($event,item)">
                 <div class="col-xs-9 col-sm-6 list-item-name">
                     <n-icon :component="FileSelectIcon(item)" size="25" color="rgb(24, 144, 255)"
                             style="margin-right: 5px"/>
