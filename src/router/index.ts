@@ -1,14 +1,15 @@
-import {createMemoryHistory, createRouter, createWebHashHistory, createWebHistory} from 'vue-router';
+import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router';
 
 export const notFoundAndNoPower = [
     {
+        path: '/admin',
+        name: "登录",
+        component: () => import('/@/views/login/index.vue'),
+    },
+    {
         path: '/:path(.*)*',
-        name: 'notFound',
+        name: "网盘",
         component: () => import('/@/views/home/index.vue'),
-        meta: {
-            title: '404',
-            isHide: true,
-        },
     },
 ];
 

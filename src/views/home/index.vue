@@ -5,9 +5,11 @@ import Mains from "/@/components/mains.vue";
 
 </script>
 <template>
-    <Headers></Headers>
-    <Navs></Navs>
-    <Mains></Mains>
+    <div class="container" style="background-color: var(--bag)">
+        <Headers></Headers>
+        <Navs></Navs>
+        <Mains></Mains>
+    </div>
 </template>
 
 

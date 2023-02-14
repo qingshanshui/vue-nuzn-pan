@@ -21,11 +21,11 @@ export function FileSelectIcon(obj: any) {
 
 /**
  * 文件大小  B 到 GB 的转换
- * @param obj
+ * @param size
  * @constructor
  */
 export function sizeToStr(size: number) {
-    let sizeStr = "";
+    let sizeStr: string;
     if (size < 0.1 * 1024) { //如果小于0.1KB转化成B
         sizeStr = size.toFixed(2) + "B";
     } else if (size < 0.1 * 1024 * 1024) {//如果小于0.1MB转化成KB
@@ -36,17 +36,18 @@ export function sizeToStr(size: number) {
         sizeStr = (size / (1024 * 1024 * 1024)).toFixed(2) + "GB";
     }
     let len = sizeStr.indexOf("\.");
-    let dec = sizeStr.substr(len + 1, 2);
+    let dec = sizeStr.substring(len + 1, 2);
     if (dec == "00") {//当小数点后为00时 去掉小数部分
-        return sizeStr.substring(0, len) + sizeStr.substr(len + 3, 2);
+        return sizeStr.substring(0, len) + sizeStr.substring(len + 3, 2);
     }
     return sizeStr;
 }
 
 
 export function saveAs(blob: any, filename: any) {
-    if (window.navigator.msSaveOrOpenBlob) {
-        navigator.msSaveBlob(blob, filename)
+    let w = window as any
+    if (w.navigator.msSaveOrOpenBlob) {
+        w.navigator.msSaveBlob(blob, filename)
     } else {
         const link = document.createElement('a')
         const body: any = document.querySelector('body')
