@@ -3,8 +3,9 @@ import {reactive, onMounted, watch} from "vue"
 import NotFound from "./main/notFound.vue"
 import List from "./main/list.vue"
 import Details from "./main/details.vue"
-import {GetList, GetFile} from "/@/api/index"
+import {GetList, GetFile} from "/@/api"
 import {useRoute} from 'vue-router'
+import bus from "/@/utils/bus";
 
 let route = useRoute()
 
@@ -21,6 +22,10 @@ let state = reactive({
 onMounted(() => {
     // initStateList()
     initStateFile()
+
+    bus.on("stateLoading", (loading: any) => {
+        state.show = loading
+    })
 })
 
 const initStateFile = async () => {
