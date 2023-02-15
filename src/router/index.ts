@@ -15,7 +15,7 @@ export const notFoundAndNoPower = [
 
 // 创建 路由实例
 export const router = createRouter({
-    history: createWebHashHistory(), // 本地调试
-    // history: createWebHistory(),
+    // history: createWebHashHistory(), // 本地调试
+    history: createWebHistory(),
     routes: [...notFoundAndNoPower],
 });
