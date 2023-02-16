@@ -43,7 +43,11 @@ export function sizeToStr(size: number) {
     return sizeStr;
 }
 
-
+/**
+ * 下载文件
+ * @param blob 
+ * @param filename 
+ */
 export function saveAs(blob: any, filename: any) {
     let w = window as any
     if (w.navigator.msSaveOrOpenBlob) {

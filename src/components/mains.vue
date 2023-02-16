@@ -10,7 +10,6 @@ import bus from "/@/utils/bus";
 let route = useRoute()
 
 watch(route, () => {
-    // initStateList()
     initStateFile()
 })
 let state = reactive({
@@ -20,14 +19,13 @@ let state = reactive({
 })
 
 onMounted(() => {
-    // initStateList()
     initStateFile()
 
     bus.on("stateLoading", (loading: any) => {
         state.show = loading
     })
 })
-
+// 获取文件信息
 const initStateFile = async () => {
     state.show = true
     let res = await GetFile({path: route.path === "/" ? "" : route.path})
@@ -43,7 +41,7 @@ const initStateFile = async () => {
     }
     state.show = false
 }
-
+// 获取文件列表
 const initStateList = async () => {
     state.show = true
     let res = await GetList({path: route.path === "/" ? "" : route.path})

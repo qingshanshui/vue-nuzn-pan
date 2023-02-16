@@ -5,17 +5,15 @@ import {useRouter} from "vue-router"
 import rightOperation from "./rightOperation.vue";
 
 const router = useRouter()
-const props = defineProps({
-    list: Array
-})
-const rightOperations = ref(null);
+const props = defineProps(['list'])
+const rightOperations:any = ref(null);
 let state = reactive({
     detail: {}
 })
 const handelDirRoute = (obj: any) => {
     router.push(obj.path)
 }
-const contextmenuOperation = (e, obj: any) => {
+const contextmenuOperation = (e:any, obj: any) => {
     e.preventDefault()
     if (obj.isDir) return false;
     state.detail = obj

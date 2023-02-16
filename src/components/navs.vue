@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Home } from '@vicons/ionicons5'
 import { useRoute, useRouter } from "vue-router"
-import { watch, reactive, computed,onMounted } from "vue"
+import { watch, reactive, computed, onMounted } from "vue"
 import { useMessage, UploadCustomRequestOptions } from 'naive-ui'
 import { upload } from "/@/api/index";
 let route = useRoute()
@@ -35,7 +35,7 @@ function routeToUrl() {
     state.routeList = arr
 }
 
-onMounted(()=>{
+onMounted(() => {
     routeToUrl()
 })
 
@@ -59,15 +59,15 @@ const customRequest = ({
         })
     }
     formData.append("file", file.file as File)
-    upload(formData).then(res=>{
-        if(res.data.code === 1000){
+    upload(formData).then(res => {
+        if (res.data.code === 1000) {
             message.success("上传成功")
             onFinish()
-        }else{
+        } else {
             message.warning(res.data?.data)
             onError()
         }
-    }).catch(err=>{
+    }).catch(err => {
         message.warning("上传失败")
         onError()
     })
@@ -91,7 +91,7 @@ const customRequest = ({
                 <n-button type="info" size="small">上传文件</n-button>
             </n-upload>
         </div>
-    </div>
+</div>
 </template>
 
 <style scoped>

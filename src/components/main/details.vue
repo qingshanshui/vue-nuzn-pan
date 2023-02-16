@@ -4,6 +4,7 @@ import {FileSelectIcon, saveAs, sizeToStr} from '/@/utils/utils'
 import {GetFileDownload} from '/@/api/index'
 import useClipboard from 'vue-clipboard3'
 import { useMessage } from 'naive-ui'
+import { error } from "console";
 const message = useMessage()
 
 const {toClipboard} = useClipboard()
@@ -11,7 +12,7 @@ const copy = async (path:string) => {
     try {
         await toClipboard(`${location.origin}/v1/download?path=${path}`)
         message.success("复制成功")
-    } catch (e) {
+    } catch (e:any) {
         message.warning(e)
     }
 }
@@ -23,9 +24,7 @@ const handelDownload = (path: string) => {
         message.success("下载成功")
     })
 }
-const props = defineProps({
-    detail: {type: Object}
-})
+const props = defineProps(['detail'])
 
 let state = reactive({
     loading: false
