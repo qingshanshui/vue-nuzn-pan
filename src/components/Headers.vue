@@ -4,7 +4,9 @@ import { Search } from '@vicons/ionicons5'
 <template>
     <header class="header">
         <div class="header-logo">
-            <img src="/@/assets/logo.png">
+            <a href="/">
+                <img src="/@/assets/logo.png">
+            </a>
         </div>
         <div class="header-search">
             <n-input round placeholder="">
@@ -13,17 +15,18 @@ import { Search } from '@vicons/ionicons5'
                 </template>
             </n-input>
         </div>
-    </header>
+</header>
 </template>
 
 <style scoped>
-.header{
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: var(--margin) 0;
 }
-.header-logo{
+
+.header-logo {
     width: 100px;
     border-radius: 20%;
     overflow: hidden;
