@@ -13,7 +13,20 @@ watch(route, () => {
 
 let state = reactive({
     routeList: [] as any[],
+    showModal: false,
 })
+
+const onNegativeClick = () => {
+    state.showModal = false
+}
+
+const onPositiveClick = () => {
+    state.showModal = false
+}
+
+const handelButton = () => {
+    state.showModal = true
+}
 
 let isUpload = computed(() => {
     return localStorage.getItem('token') ? true : false
@@ -87,11 +100,20 @@ const customRequest = ({
             </n-breadcrumb-item>
         </n-breadcrumb>
         <div class="upload" v-if="isUpload">
+
+            <n-button type="info" size="small" @click="handelButton">上传文件</n-button>
+        </div>
+    </div>
+    <n-modal v-model:show="state.showModal" :mask-closable="false" preset="dialog" title="文件上传">
+        <div style="display: flex;">
             <n-upload :custom-request="customRequest" multiple :show-file-list="false">
-                <n-button type="info" size="small">上传文件</n-button>
+                <n-button type="info" size="small">api上传</n-button>
+            </n-upload>
+            <n-upload :custom-request="customRequest" multiple :show-file-list="false">
+                <n-button type="info" size="small">上传当前目录</n-button>
             </n-upload>
         </div>
-</div>
+    </n-modal>
 </template>
 
 <style scoped>

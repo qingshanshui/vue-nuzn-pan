@@ -1,8 +1,8 @@
-import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router';
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 
 export const notFoundAndNoPower = [
     {
-        path: '/admin',
+        path: '/login',
         name: "登录",
         component: () => import('/@/views/login/index.vue'),
     },
