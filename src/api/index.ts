@@ -50,9 +50,9 @@ export function login(data: object) {
 }
 
 // 文件上传
-export function upload(data: object) {
+export function upload(data: object, url: any) {
     return request({
-        url: '/v1/upload',
+        url: `/v1/upload?type=${url.type}&&url=${url.url}`,
         method: 'POST',
         data: data,
         headers: {

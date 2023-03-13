@@ -51,7 +51,41 @@ function routeToUrl() {
 onMounted(() => {
     routeToUrl()
 })
-
+// api上传
+const customRequestApi = ({
+    file,
+    data,
+    headers,
+    withCredentials,
+    action,
+    onFinish,
+    onError,
+    onProgress
+}: UploadCustomRequestOptions) => {
+    const formData = new FormData()
+    if (data) {
+        Object.keys(data).forEach((key) => {
+            formData.append(
+                key,
+                data[key as keyof UploadCustomRequestOptions['data']]
+            )
+        })
+    }
+    formData.append("file", file.file as File)
+    upload(formData, { type: 1 }).then(res => {
+        if (res.data.code === 1000) {
+            message.success("上传成功")
+            onFinish()
+        } else {
+            message.warning(res.data?.data)
+            onError()
+        }
+    }).catch(err => {
+        message.warning("上传失败")
+        onError()
+    })
+}
+// 当前文件上传
 const customRequest = ({
     file,
     data,
@@ -72,7 +106,7 @@ const customRequest = ({
         })
     }
     formData.append("file", file.file as File)
-    upload(formData).then(res => {
+    upload(formData, { type: 2, url: route.path }).then(res => {
         if (res.data.code === 1000) {
             message.success("上传成功")
             onFinish()
@@ -105,13 +139,17 @@ const customRequest = ({
         </div>
     </div>
     <n-modal v-model:show="state.showModal" :mask-closable="false" preset="dialog" title="文件上传">
-        <div style="display: flex;">
-            <n-upload :custom-request="customRequest" multiple :show-file-list="false">
-                <n-button type="info" size="small">api上传</n-button>
-            </n-upload>
-            <n-upload :custom-request="customRequest" multiple :show-file-list="false">
-                <n-button type="info" size="small">上传当前目录</n-button>
-            </n-upload>
+        <div>
+            <div style="margin: 10px;">
+                <n-upload :custom-request="customRequestApi" multiple :show-file-list="false">
+                    <n-button type="info" size="small">api上传</n-button>
+                </n-upload>
+            </div>
+            <div style="margin: 10px;">
+                <n-upload :custom-request="customRequest" multiple :show-file-list="false">
+                    <n-button type="info" size="small">上传当前目录</n-button>
+                </n-upload>
+            </div>
         </div>
     </n-modal>
 </template>
